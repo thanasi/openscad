@@ -43,9 +43,9 @@ if __name__ == "__main__":
     NX0 = 10
     NY0 = 10
     NZ0 = 1
-    DX0 = 2.1
-    DY0 = 2.1
-    DZ0 = 1.8
+    DX0 = 1.5
+    DY0 = 1.5
+    DZ0 = 1.3
     R0 = 1
 
     parser.add_argument('poly', type=int, choices=polygons.keys(), help='polygon')
@@ -97,7 +97,7 @@ if __name__ == "__main__":
     for i in range(nx - (k%2)):
         for j in range(ny - (k%2)):
             for k in range(nz):
-                iterstr += '[%6.6f,%6.6f,%6.6f],' % (i*dx*r + (dx * (k%2) / 2), j*dy*r + (dx * (k%2) / 2), k*dz*r)
+                iterstr += '[%6.6f,%6.6f,%6.6f],' % (i*dx*r + (dx * (k%2)), j*dy*r + (dx * (k%2)), k*dz*r)
     iterstr = iterstr[:-1]
 
     with open(genoutfile, 'w') as of:
