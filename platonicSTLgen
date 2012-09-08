@@ -16,7 +16,7 @@ polygons = {4: 'tetrahedron',
             12: 'dodecahedron',
             20: 'icosahedron'}
 
-# prefactors calculated from polehedra volume formulas
+# conversion between different descriptive parameters for the polyhedra
 v2a = { 4: (lambda V: (12 * V / np.sqrt(2))**(1/3)),
         6: (lambda V: V**(1/3)),
         8: (lambda V: (3 * V / np.sqrt(2))**(1/3)),
@@ -31,7 +31,20 @@ a2r = { 4: (lambda a: a * np.sqrt(3/8)),
         20: (lambda a: a * (10 + 2 * np.sqrt(5)) / 4)
         }
 
+r2a = { 4: (lambda r: r * np.sqrt(8/3)),
+        6: (lambda r: r * 2 / np.sqrt(3)),
+        8: (lambda r: r * np.sqrt(2)),
+        12: (lambda r: r / (np.sqrt(3) * (1 + np.sqrt(5) / 4))),
+        20: (lambda r: r / ((10 + 2 * np.sqrt(5)) / 4))
+        }
 
+a2v = { 4: (lambda a: a**3 * np.sqrt(2) / 12),
+        6: (lambda a: a**3),
+        8: (lambda a: a**3 * np.sqrt(2) / 3),
+        12: (lambda a: a**3 * (15 + 7 * np.sqrt(5)) / 4),
+        20: (lambda a: a**3 * 5 * (3 + np.sqrt(5)) / 12)
+        } 
+            
 
 if __name__ == "__main__":
 
@@ -56,6 +69,7 @@ if __name__ == "__main__":
     parser.add_argument('-a', type=float, default=0.0, help='desired side length in mm')
     parser.add_argument('--cornellvol', action='store_true', help='match the cornell particle volume')
 
+    parser.add_argument('--nums', action='store_true', help='just output lengths and volumes to outfile')
     parser.add_argument('outfile', type=str, help='outfile')
     
     args = parser.parse_args()
@@ -64,9 +78,10 @@ if __name__ == "__main__":
     r = args.r
     nx,ny,nz = args.s
     dx,dy,dz  = args.d
-    v = args.v
+    v = args.v * 1000
     a = args.a
     cornellv = args.cornellvol
+    numsonly = args.nums
     outfile = args.outfile
 
     # volume specifier has precedence over edge length and radius
@@ -75,10 +90,11 @@ if __name__ == "__main__":
 
     if cornellv:
         v = .0225 # mL
-        print 'setting volume to v=%f cm^3' % v
+        v *= 1000
+        print 'setting volume to v=%f mm^3' % v
 
     if v:
-        a = v2a[p](v) * 10
+        a = v2a[p](v)
         print 'setting edge length to a=%f mm' % a
 
     if a:
@@ -91,6 +107,23 @@ if __name__ == "__main__":
 
     genoutfile = os.path.join('generated', outfile_base + '.scad')
     stloutfile = os.path.join('STL', outfile_base + '.stl')
+
+    if not a:
+        a = r2a[p](r)
+    if not v:
+        v = a2v[p](a)
+
+
+    sys.stdout.write('-'*30)
+    sys.stdout.write('\n')
+    sys.stdout.write('r (mm): %f\na (mm): %f\nv (mm^3): %f\n' % (r,a,v))
+    sys.stdout.write('-'*30)
+    sys.stdout.write('\n')
+
+    if numsonly:
+        with open(outfile, 'w') as oof:
+            oof.write('r (mm): %f\na (mm): %f\nv (mm^3): %f\n' % (r,a,v))
+        sys.exit(0)
 
     iterstr = ''
     k = 0
