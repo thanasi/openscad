@@ -167,7 +167,7 @@ rad = %6.6f;
 
 for(i = [ %s ])
 {
-    translate(i);
+    translate(i)
     %s;
 }
 
