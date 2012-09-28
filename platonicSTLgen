@@ -121,7 +121,8 @@ if __name__ == "__main__":
     outfile_base = os.path.splitext(outfile_base)[0]
 
     genoutfile = os.path.join('scad', outfile_base + '.scad')
-    stloutfile = os.path.join('STL', outfile_base + '.stl')
+    stloutfile = os.path.join('STL', 'ASCII', outfile_base + '.stl')
+    stlboutfile = os.path.join('STL', 'BIN', outfile_base + '.stl')
 
     if not a:
         a = r2a[p](r)
@@ -186,7 +187,12 @@ polyhedron(points = poly[0], triangles = poly[1]);
 
     print 'wrote '+genoutfile
 
-    # openscad -o STL/octarray.stl generated/octahedronarray.scad
+    # openscad -o STL/OUTPUT.stl generated/INPUT.scad
     subprocess.call(['openscad', '-o%s' % stloutfile, genoutfile])
 
     print 'wrote '+stloutfile
+
+    # meshlabserver -i STL/ASCII/INPUT.stl -o STL/BIN/OUTPUT.stl
+    subprocess.call(['openscad', '-%s' % stloutfile, '-o%s' % stlboutfile])
+
+    print 'wrote '+stlboutfile

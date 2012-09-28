@@ -1,0 +1,6 @@
+#!/bin/sh
+# Convert ASCII STL file to binary
+# using Meshlab
+
+
+meshlabserver -i $1 -o $2
