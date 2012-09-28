@@ -6,10 +6,10 @@
 ./platonicSTLgen 0 STL/spharray.cornellvol.stl --cornellvol -s 4 4 3 -q 50 -d 2.25 2.25 .1.75
 
 ./platonicSTLgen 4 STL/tetrahedron.cornellvol.stl --cornellvol -s 1 1 1
-./platonicSTLgen 4 STL/tetrahedron.cornellvol.stl --cornellvol -s 10 10 3
+./platonicSTLgen 4 STL/tetrarray.cornellvol.stl --cornellvol -s 10 10 3
 
 ./platonicSTLgen 6 STL/cube.cornellvol.stl --cornellvol -s 1 1 1
-./platonicSTLgen 6 STL/cubearray.cornellvol.stl --cornellvol -s 10 10 3
+./platonicSTLgen 6 STL/cubarray.cornellvol.stl --cornellvol -s 10 10 3
 
 ./platonicSTLgen 8 STL/octahedron.cornellvol.stl --cornellvol -s 1 1 1
 ./platonicSTLgen 8 STL/octarray.cornellvol.stl --cornellvol -s 10 10 3 -d 2.25 2.25 1.5
