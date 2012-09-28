@@ -20,36 +20,41 @@ polygons = { 0: 'sphere',
              20: 'icosahedron'}
 
 # conversion between different descriptive parameters for the polyhedra
-v2a = { 0: (lambda V: r2a[0](( 3 * V / (4 * np.pi) )**(1/3))), # volume to perimeter
-        4: (lambda V: (12 * V / np.sqrt(2))**(1/3)),
+# prefactors taken from wikipedia or calculated
+# v - volume
+# a - edge length (circle perim for sphere)
+# r - circumradius
+
+v2a = { 0: (lambda V: r2a[0]((V/4.11879)**(1/3))),
+        4: (lambda V: (V * 8.48528)**(1/3)),
         6: (lambda V: V**(1/3)),
-        8: (lambda V: (3 * V / np.sqrt(2))**(1/3)),
-        12: (lambda V: (4 * V / (15 + 7*np.sqrt(5)))**(1/3)),
-        20: (lambda V: (12 * V / (5 * (3 + np.sqrt(5))))**(1/3)) 
+        8: (lambda V: (V / .471405)**(1/3)),
+        12: (lambda V: (V / 7.6631190)**(1/3)),
+        20: (lambda V: (V / 2.1816950)**(1/3)),
         }
 
-a2r = { 0: (lambda a: a / (2 * np.pi)), # perimeter to radius
-        4: (lambda a: a * np.sqrt(3/8)),
-        6: (lambda a: a * np.sqrt(3) / 2),
-        8: (lambda a: a / np.sqrt(2)),
-        12: (lambda a: a * np.sqrt(3) * (1 + np.sqrt(5) / 4)),
-        20: (lambda a: a * (10 + 2 * np.sqrt(5)) / 4)
+a2r = { 0: (lambda a: a / (2 * np.pi)),
+        4: (lambda a: .6123724 * a),
+        6: (lambda a: .8660254 * a),
+        8: (lambda a: .7071067 * a),
+        12: (lambda a: 1.401259 * a),
+        20: (lambda a: .9510575 * a),
         }
 
-r2a = { 0: (lambda r: 2 * np.pi * r), # radius to perimeter
-        4: (lambda r: r * np.sqrt(8/3)),
-        6: (lambda r: r * 2 / np.sqrt(3)),
-        8: (lambda r: r * np.sqrt(2)),
-        12: (lambda r: r / (np.sqrt(3) * (1 + np.sqrt(5) / 4))),
-        20: (lambda r: r / ((10 + 2 * np.sqrt(5)) / 4))
+r2a = { 0: (lambda r: 2 * np.pi * r),
+        4: (lambda r: r / .6123724),
+        6: (lambda r: r / .8660254),
+        8: (lambda r: r / .7071067),
+        12: (lambda r: r / 1.401259),
+        20: (lambda r: r / .9510575),
         }
 
-a2v = { 0: (lambda a: (a2r[0](a))**3 * (4 / 3) * np.pi), # perimeter to volume
-        4: (lambda a: a**3 * np.sqrt(2) / 12),
+a2v = { 0: (lambda a: 4.18879 * a2r[0](a)**3),
+        4: (lambda a: a**3 / 8.48528),
         6: (lambda a: a**3),
-        8: (lambda a: a**3 * np.sqrt(2) / 3),
-        12: (lambda a: a**3 * (15 + 7 * np.sqrt(5)) / 4),
-        20: (lambda a: a**3 * 5 * (3 + np.sqrt(5)) / 12)
+        8: (lambda a: a**3 * .4714045),
+        12: (lambda a: a**3 * 7.6631190),
+        20: (lambda a: a**3 * 2.1816950),
         } 
             
 

@@ -6,14 +6,14 @@ include <../platonic.scad>
 
 // units are mm
 
-rad = 1.751316;
+rad = 1.761182;
 
 // poly = sphere(rad);
 
 for(i = [ [0.000000,0.000000,0.000000] ])
 {
     translate(i)
-    sphere(r=rad, $fn=40);
+    sphere(r=rad, $fn=50);
 }
 
 module display_polyhedron(poly) 

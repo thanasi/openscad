@@ -6,7 +6,7 @@ include <../platonic.scad>
 
 // units are mm
 
-rad = 2.564964;
+rad = 2.564963;
 
  poly = octahedron(rad);
 

@@ -6,7 +6,7 @@ include <../platonic.scad>
 
 // units are mm
 
-rad = 3.866670;
+rad = 2.006523;
 
  poly = dodecahedron(rad);
 
