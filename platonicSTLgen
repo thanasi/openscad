@@ -193,6 +193,6 @@ polyhedron(points = poly[0], triangles = poly[1]);
     print 'wrote '+stloutfile
 
     # meshlabserver -i STL/ASCII/INPUT.stl -o STL/BIN/OUTPUT.stl
-    subprocess.call(['openscad', '-%s' % stloutfile, '-o%s' % stlboutfile])
+    subprocess.call(['meshlabserver', '-i%s' % stloutfile, '-o%s' % stlboutfile])
 
     print 'wrote '+stlboutfile
